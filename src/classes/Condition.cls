@@ -22,6 +22,7 @@ public class Condition {
 
     public class InvalidConditionException extends Exception {}
 
+    private final SObjectType objectType;
     private final DescribeFieldResult field;
     private final String operator;
     private final Object filterValue;
@@ -33,6 +34,7 @@ public class Condition {
                 String.format(INVALID_FIELD, new List<String>{fieldApiName, objectApiName})
             );
         }
+        objectType = schema.getDescribe(objectApiName).getSObjectType();
         field = schema.getFieldDescribe(objectApiName, fieldApiName);
         filterValue = parseFieldValue(filterValueString);
         this.operator = operator.toLowerCase();
@@ -44,6 +46,7 @@ public class Condition {
     }
 
     public Boolean isMatch(SObject recordToCheck) {
+        validateSObject(recordToCheck);
         Boolean isMatch = false;
         Object fieldValue = recordToCheck.get(field.getName());
         if (operator == EQUAL) {
@@ -76,6 +79,12 @@ public class Condition {
             throwInvalidOperatorException();
         }
         return isMatch;
+    }
+
+    private void validateSObject(SObject recordToValidate) {
+        if (recordToValidate.getSObjectType() != objectType) {
+            throw new InvalidConditionException('Invalid sobject provided into the condition ' + toString());
+        }
     }
 
     private Boolean isEqual(Object fieldValue) {
@@ -180,5 +189,9 @@ public class Condition {
         return new Set<String>(
             fieldValue.toLowerCase().split(';')
         );
+    }
+
+    public override String toString() {
+        return field.getName() + ' ' + operator + ' ' + String.valueOf(filterValue);
     }
 }

@@ -26,6 +26,27 @@ private class ConditionTest {
     }
 
     @isTest
+    private static void isMatchTest_InvalidSObject() {
+        final String filterValue = 'Gavin';
+        Condition equalsCondition = new Condition('Account', 'Name', Condition.EQUAL, filterValue);
+        try {
+            equalsCondition.isMatch(new Contact());
+            System.assert(false, 'An exception should be thrown if the provided sobject does not match the conditions sobject');
+
+        } catch (Condition.InvalidConditionException exceptionToCheck) {
+            System.assert(
+                exceptionToCheck.getMessage().contains(filterValue),
+                'The message should contain the name of the details of the condition, actual error given: ' + exceptionToCheck.getMessage()
+            );
+        } catch (Exception wrongException) {
+            System.assert(
+                false,
+                'A more specific exception should have been thrown, error given: ' + wrongException.getMessage()
+            );
+        }
+    }
+
+    @isTest
     private static void isMatchTest_Equals_EqualStrings() {
         final String matchingName = 'Gavin';
         Condition equalsCondition = new Condition('Account', 'Name', Condition.EQUAL, matchingName);
