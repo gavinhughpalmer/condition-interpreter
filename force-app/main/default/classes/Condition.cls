@@ -28,7 +28,7 @@ public class Condition {
     private final Object filterValue;
 
     public Condition(String objectApiName, String fieldApiName, String operator, String filterValueString) {
-        SchemaDescribe schema = SchemaDescribe.getInstance();
+        SchemaFacade schema = SchemaFacade.getInstance();
         if (schema.isNotValidField(objectApiName, fieldApiName)) {
             throw new InvalidConditionException(
                 String.format(INVALID_FIELD, new List<String>{fieldApiName, objectApiName})

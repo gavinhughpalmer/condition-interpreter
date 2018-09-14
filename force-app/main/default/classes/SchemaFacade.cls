@@ -2,13 +2,13 @@
  * Created by admin-1019 on 08/06/2018.
  */
 
-public class SchemaDescribe {
+public class SchemaFacade {
 
     public class InvalidDescribeException extends Exception {}
 
-    private static final SchemaDescribe instance = new SchemaDescribe();
+    private static final SchemaFacade instance = new SchemaFacade();
 
-    public static SchemaDescribe getInstance() {
+    public static SchemaFacade getInstance() {
         return instance;
     }
 
@@ -17,7 +17,7 @@ public class SchemaDescribe {
     private Map<String, Map<String, SObjectField>> fieldTypesByNameAndObject = new Map<String, Map<String, SObjectField>>();
     private Map<String, Map<String, DescribeFieldResult>> fieldDescribeByNameAndObject = new Map<String, Map<String, DescribeFieldResult>>();
 
-    private SchemaDescribe() {
+    private SchemaFacade() {
     }
 
     public Boolean isValidSObject(String objectApiName) {
