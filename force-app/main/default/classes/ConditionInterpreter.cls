@@ -7,12 +7,12 @@ public class ConditionInterpreter {
     public class InvalidLogicException extends Exception {
     }
 
-    private final Map<Integer, Condition> conditionsByIndex;
+    private final Map<Integer, FieldCondition> conditionsByIndex;
     private final String conditionalLogic;
     private Lexer lexer;
     private Token currentToken;
 
-    public ConditionInterpreter(String conditionalLogic, Map<Integer, Condition> conditionsByIndex) {
+    public ConditionInterpreter(String conditionalLogic, Map<Integer, FieldCondition> conditionsByIndex) {
         this.conditionsByIndex = conditionsByIndex;
         this.conditionalLogic = conditionalLogic;
     }

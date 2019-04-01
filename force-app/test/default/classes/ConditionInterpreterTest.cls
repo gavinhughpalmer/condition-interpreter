@@ -10,10 +10,10 @@ private class ConditionInterpreterTest {
         final String secondMatchingStreetValue = 'Avenue';
         ConditionInterpreter interpreter = new ConditionInterpreter(
             '1 AND (2 OR 3)',
-            new Map<Integer, Condition>{
-                1 => new Condition('Account', 'Name', Condition.EQUAL, matchingAccountName),
-                2 => new Condition('Account','BillingStreet', Condition.CONTAINS, firstMatchingStreetValue),
-                3 => new Condition('Account', 'BillingStreet', Condition.CONTAINS, secondMatchingStreetValue)
+            new Map<Integer, FieldCondition>{
+                1 => new FieldCondition('Account', 'Name', FieldCondition.EQUAL, matchingAccountName),
+                2 => new FieldCondition('Account','BillingStreet', FieldCondition.CONTAINS, firstMatchingStreetValue),
+                3 => new FieldCondition('Account', 'BillingStreet', FieldCondition.CONTAINS, secondMatchingStreetValue)
             }
         );
 
@@ -37,10 +37,10 @@ private class ConditionInterpreterTest {
         final String secondMatchingStreetValue = 'Avenue';
         ConditionInterpreter interpreter = new ConditionInterpreter(
             '1 AND (2 OR 3)',
-            new Map<Integer, Condition>{
-                1 => new Condition('Account', 'Name', Condition.EQUAL, matchingAccountName),
-                2 => new Condition('Account','BillingStreet', Condition.CONTAINS, firstMatchingStreetValue),
-                3 => new Condition('Account', 'BillingStreet', Condition.CONTAINS, secondMatchingStreetValue)
+            new Map<Integer, FieldCondition>{
+                1 => new FieldCondition('Account', 'Name', FieldCondition.EQUAL, matchingAccountName),
+                2 => new FieldCondition('Account','BillingStreet', FieldCondition.CONTAINS, firstMatchingStreetValue),
+                3 => new FieldCondition('Account', 'BillingStreet', FieldCondition.CONTAINS, secondMatchingStreetValue)
             }
         );
         Account firstNonMatch = new Account(Name = 'Not Match', BillingStreet = firstMatchingStreetValue + secondMatchingStreetValue);
@@ -62,10 +62,10 @@ private class ConditionInterpreterTest {
 
         ConditionInterpreter interpreter = new ConditionInterpreter(
             '1 ' + invalidKeyword + ' (2 OR 3)',
-            new Map<Integer, Condition>{
-                1 => new Condition('Account', 'Name', Condition.EQUAL, 'Test'),
-                2 => new Condition('Account','BillingStreet', Condition.CONTAINS, 'Test'),
-                3 => new Condition('Account', 'BillingStreet', Condition.CONTAINS, 'Test')
+            new Map<Integer, FieldCondition>{
+                1 => new FieldCondition('Account', 'Name', FieldCondition.EQUAL, 'Test'),
+                2 => new FieldCondition('Account','BillingStreet', FieldCondition.CONTAINS, 'Test'),
+                3 => new FieldCondition('Account', 'BillingStreet', FieldCondition.CONTAINS, 'Test')
             }
         );
         Account testAccount = new Account(Name = 'Not Match', BillingStreet = 'Test');
@@ -86,7 +86,7 @@ private class ConditionInterpreterTest {
     private static void isMatchTest_InvalidSyntax() {
         ConditionInterpreter interpreter = new ConditionInterpreter(
             ')',
-            new Map<Integer, Condition>()
+            new Map<Integer, FieldCondition>()
         );
         Account testAccount = new Account(Name = 'Not Match', BillingStreet = 'Test');
         try {
@@ -106,9 +106,9 @@ private class ConditionInterpreterTest {
     private static void isMatchTest_InvalidIndex() {
         ConditionInterpreter interpreter = new ConditionInterpreter(
             '1 AND (2 OR 3)',
-            new Map<Integer, Condition>{
-                1 => new Condition('Account', 'Name', Condition.EQUAL, 'Test'),
-                2 => new Condition('Account','BillingStreet', Condition.CONTAINS, 'Test')
+            new Map<Integer, FieldCondition>{
+                1 => new FieldCondition('Account', 'Name', FieldCondition.EQUAL, 'Test'),
+                2 => new FieldCondition('Account','BillingStreet', FieldCondition.CONTAINS, 'Test')
             }
         );
         Account testAccount = new Account(Name = 'Not Match', BillingStreet = 'Test');

@@ -39,7 +39,7 @@ public class SchemaFacade {
         return sObjectDescribeByObjectNames.get(objectApiName);
     }
 
-    private void validateObjectApiName(String objectApiName) {
+    public void validateObjectApiName(String objectApiName) {
         if (isNotValidSObject(objectApiName)) {
             throw new InvalidDescribeException('SObject name (' + objectApiName + ') is invalid');
         }
@@ -76,7 +76,7 @@ public class SchemaFacade {
         return fieldDescribeByNameAndObject.get(objectApiName).get(fieldApiName);
     }
 
-    private void validateFieldApiName(String objectApiName, String fieldApiName) {
+    public void validateFieldApiName(String objectApiName, String fieldApiName) {
         if (isNotValidField(objectApiName, fieldApiName)) {
             throw new InvalidDescribeException('Field name (' + fieldApiName + ') does not exist on the object ' + objectApiName);
         }
