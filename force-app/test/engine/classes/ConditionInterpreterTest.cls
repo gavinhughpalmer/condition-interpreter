@@ -4,7 +4,7 @@
 @isTest
 private class ConditionInterpreterTest {
     @isTest
-    private static void isMatchTest_ValidMatch() {
+    private static void isMatchTestValidMatch() {
         final String matchingAccountName = 'Test Account';
         final String firstMatchingStreetValue = 'Street';
         final String secondMatchingStreetValue = 'Avenue';
@@ -31,7 +31,7 @@ private class ConditionInterpreterTest {
     }
 
     @isTest
-    private static void isMatchTest_InvalidMatch() {
+    private static void isMatchTestInvalidMatch() {
         final String matchingAccountName = 'Test Account';
         final String firstMatchingStreetValue = 'Street';
         final String secondMatchingStreetValue = 'Avenue';
@@ -57,7 +57,7 @@ private class ConditionInterpreterTest {
     }
 
     @isTest
-    private static void isMatchTest_InvalidKeyword() {
+    private static void isMatchTestInvalidKeyword() {
         final String invalidKeyword = 'wrongkeyword';
 
         ConditionInterpreter interpreter = new ConditionInterpreter(
@@ -83,7 +83,7 @@ private class ConditionInterpreterTest {
     }
 
     @isTest
-    private static void isMatchTest_InvalidSyntax() {
+    private static void isMatchTestInvalidSyntax() {
         ConditionInterpreter interpreter = new ConditionInterpreter(
             ')',
             new Map<Integer, FieldCondition>()
@@ -103,7 +103,7 @@ private class ConditionInterpreterTest {
     }
 
     @isTest
-    private static void isMatchTest_InvalidIndex() {
+    private static void isMatchTestInvalidIndex() {
         ConditionInterpreter interpreter = new ConditionInterpreter(
             '1 AND (2 OR 3)',
             new Map<Integer, FieldCondition>{

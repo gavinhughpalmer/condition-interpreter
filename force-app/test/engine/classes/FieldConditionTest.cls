@@ -189,22 +189,22 @@ private class FieldConditionTest {
         }
     }
 
-    @isTest
-    private static void isMatchTestIncludingIncludingPicklist() {
+    // @isTest
+    // private static void isMatchTestIncludingIncludingPicklist() {
 //        final String includedPicklistValue = 'Test Value';
 //        FieldCondition condition = new FieldCondition('Account', 'A multi picklist field', FieldCondition.INCLUDES, includedPicklistValue);
 //        Account testAccount = new Account(); // need to set a multi picklist field
 //        System.assert(condition.isMatch(testAccount), 'The ');
         //TODO
-    }
+    // }
 
-    @isTest
-    private static void isMatchTestExcludingExcludingPicklist() {
+    // @isTest
+    // private static void isMatchTestExcludingExcludingPicklist() {
 //        FieldCondition condition = new FieldCondition('Account', 'A multi picklist field', FieldCondition.INCLUDES, 'Some;picklist;values');
 //        Account testAccount = new Account(); // need to set a multi picklist field
 //        System.assert(condition.isMatch(testAccount), 'The ');
         //TODO
-    }
+    // }
 
     @isTest
     private static void isMatchTestContainsHasString() {

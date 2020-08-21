@@ -20,7 +20,7 @@ public class FieldCondition {
     public static final String EXCLUDES = 'excludes';
     public static final String WITHIN = 'within';
 
-    private static final Map<String, Conditionable> conditions = new Map<String, Conditionable>{
+    private static final Map<String, Conditionable> CONDITIONS = new Map<String, Conditionable>{
         EQUAL => new EqualsCondition(),
         NOT_EQUAL => new NotCondition(new EqualsCondition()),
         CONTAINS => new ContainsCondition(),
@@ -44,6 +44,7 @@ public class FieldCondition {
     private final Conditionable condition;
     private final Object filterValue;
 
+    @SuppressWarnings('PMD.ExcessiveParameterList')
     public FieldCondition(String objectApiName, String fieldApiName, String operator, String filterValueString) {
         final SchemaFacade schema = SchemaFacade.getInstance();
         schema.validateFieldApiName(objectApiName, fieldApiName);
@@ -52,11 +53,11 @@ public class FieldCondition {
         filterValue = parseFieldValue(filterValueString);
         this.operator = operator.toLowerCase();
         validateOperator();
-        condition = conditions.get(this.operator);
+        condition = CONDITIONS.get(this.operator);
     }
 
     private void validateOperator() {
-        if (!conditions.containsKey(this.operator)) {
+        if (!CONDITIONS.containsKey(this.operator)) {
             throw new InvalidConditionException(
                 String.format(INVALID_OPERATOR, new List<String>{this.operator})
             );
