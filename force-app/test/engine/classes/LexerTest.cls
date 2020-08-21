@@ -5,7 +5,7 @@
 private class LexerTest {
 
     @isTest
-    private static void getNextTokenTest_SingleKeyword() {
+    private static void getNextTokenTestSingleKeyword() {
         final String textToRead = 'aToken';
         Lexer lexer = new Lexer(textToRead);
 
@@ -23,7 +23,7 @@ private class LexerTest {
     }
 
     @isTest
-    private static void getNextTokenTest_IndexToken() {
+    private static void getNextTokenTestIndexToken() {
         final Integer indexValue = 10;
         Lexer lexer = new Lexer(String.valueOf(indexValue));
 
@@ -41,7 +41,7 @@ private class LexerTest {
     }
 
     @isTest
-    private static void getNextTokenTest_LeftBracket() {
+    private static void getNextTokenTestLeftBracket() {
         Lexer thisLexer = new Lexer(Lexer.LEFT_BRACKET);
 
         Token returnedToken = thisLexer.getNextToken();
@@ -58,7 +58,7 @@ private class LexerTest {
     }
 
     @isTest
-    private static void getNextTokenTest_RightBracket() {
+    private static void getNextTokenTestRightBracket() {
         Lexer thisLexer = new Lexer(Lexer.RIGHT_BRACKET);
 
         Token returnedToken = thisLexer.getNextToken();
@@ -75,7 +75,7 @@ private class LexerTest {
     }
 
     @isTest
-    private static void getNextTokenTest_SkipWhitespace() {
+    private static void getNextTokenTestSkipWhitespace() {
         Lexer lexer = new Lexer('    ');
         Token endOfFile = lexer.getNextToken();
 
@@ -86,7 +86,7 @@ private class LexerTest {
     }
 
     @isTest
-    private static void getNextTokenTest_InvalidCharacter() {
+    private static void getNextTokenTestInvalidCharacter() {
         String invalidCharacter = '*';
         Lexer lexer = new Lexer(invalidCharacter);
         try {
