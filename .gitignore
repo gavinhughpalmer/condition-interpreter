@@ -1,6 +1,9 @@
+.sfdx
+.DS_store
+setup.sh
+.vscode
 *.sublime-project
 *.sublime-workspace
-config/
-.sfdx
-.DS_Store
-.vscode
+test-results
+package.txt
+*.key
