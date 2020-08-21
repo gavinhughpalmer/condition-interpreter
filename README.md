@@ -20,5 +20,3 @@ The project came about with seeing that many managed packages in Salesforce deve
 ## Future Phases
 
 * Include logic to create a dynamic soql based on the conditions so that only the records that are being refrenced get queried
-
-sfdx force:package:create -d "This package allows for defining conditions that can then be evaluated in code. For example an object created that will allow for additional filtering on a page dynamically" -n condition-interpreter -r force-app -t Unlocked
