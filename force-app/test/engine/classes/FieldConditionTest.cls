@@ -72,7 +72,7 @@ private class FieldConditionTest {
     @isTest
     private static void isMatchTestLessThanLessThanDate() {
         final Date today = Date.today();
-        FieldCondition lessThanCondition = new FieldCondition(Contact.Birthdate, FieldCondition.LESS_THAN, String.valueOf(today));
+        FieldCondition lessThanCondition = new FieldCondition(Contact.Birthdate, FieldCondition.LESS_THAN, today);
         Contact testContact = new Contact(Birthdate = today.addDays(-1));
         System.assert(
             lessThanCondition.isMatch(testContact),
@@ -100,7 +100,7 @@ private class FieldConditionTest {
     @isTest
     private static void isMatchTestLessThanEqualDate() {
         final Date today = Date.today();
-        FieldCondition lessThanCondition = new FieldCondition(Contact.Birthdate, FieldCondition.LESS_THAN, String.valueOf(today));
+        FieldCondition lessThanCondition = new FieldCondition(Contact.Birthdate, FieldCondition.LESS_THAN, today);
         Contact testContact = new Contact(Birthdate = today);
         System.assert(
             !lessThanCondition.isMatch(testContact),
@@ -111,7 +111,7 @@ private class FieldConditionTest {
     @isTest
     private static void isMatchTestLessOrEqualEqualDate() {
         final Date today = Date.today();
-        FieldCondition lessThanCondition = new FieldCondition(Contact.Birthdate, FieldCondition.LESS_OR_EQUAL, String.valueOf(today));
+        FieldCondition lessThanCondition = new FieldCondition(Contact.Birthdate, FieldCondition.LESS_OR_EQUAL, today);
         Contact testContact = new Contact(Birthdate = today);
         System.assert(
             lessThanCondition.isMatch(testContact),
@@ -122,7 +122,7 @@ private class FieldConditionTest {
     @isTest
     private static void isMatchTestGreaterThanGreaterDate() {
         final Date today = Date.today();
-        FieldCondition lessThanCondition = new FieldCondition(Contact.Birthdate, FieldCondition.GREATER_THAN, String.valueOf(today));
+        FieldCondition lessThanCondition = new FieldCondition(Contact.Birthdate, FieldCondition.GREATER_THAN, today);
         Contact testContact = new Contact(Birthdate = today.addDays(1));
         System.assert(
             lessThanCondition.isMatch(testContact),
@@ -133,7 +133,7 @@ private class FieldConditionTest {
     @isTest
     private static void isMatchTestGreaterOrEqualGreaterDate() {
         final Date today = Date.today();
-        FieldCondition lessThanCondition = new FieldCondition(Contact.Birthdate, FieldCondition.GREATER_OR_EQUAL, String.valueOf(today));
+        FieldCondition lessThanCondition = new FieldCondition(Contact.Birthdate, FieldCondition.GREATER_OR_EQUAL, today);
         Contact testContact = new Contact(Birthdate = today.addDays(1));
         System.assert(
             lessThanCondition.isMatch(testContact),
@@ -144,7 +144,7 @@ private class FieldConditionTest {
     @isTest
     private static void isMatchTestGreaterOrEqualGreaterNumber() {
         final Decimal smallerNumber = 200.0;
-        FieldCondition lessThanCondition = new FieldCondition(Account.AnnualRevenue, FieldCondition.GREATER_OR_EQUAL, String.valueOf(smallerNumber));
+        FieldCondition lessThanCondition = new FieldCondition(Account.AnnualRevenue, FieldCondition.GREATER_OR_EQUAL, smallerNumber);
         Account testAccount = new Account(AnnualRevenue = smallerNumber + 10);
         System.assert(
             lessThanCondition.isMatch(testAccount),
