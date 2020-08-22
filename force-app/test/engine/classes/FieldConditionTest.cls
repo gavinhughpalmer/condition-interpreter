@@ -198,7 +198,7 @@ private class FieldConditionTest {
 
     @isTest
     private static void isMatchTestContainsInvalidStringField() {
-        FieldCondition condition = new FieldCondition(Account.AnualRevenue, FieldCondition.CONTAINS, '10.1');
+        FieldCondition condition = new FieldCondition(Account.AnnualRevenue, FieldCondition.CONTAINS, '10.1');
         Account testAccount = new Account(Name = 'An account Name');
         try {
             condition.isMatch(testAccount);
@@ -267,7 +267,7 @@ private class FieldConditionTest {
 
     @isTest
     private static void isMatchTestStartsWithInvalidStringField() {
-        FieldCondition condition = new FieldCondition(Account.AnualRevenue, FieldCondition.STARTS_WITH, '10.1');
+        FieldCondition condition = new FieldCondition(Account.AnnualRevenue, FieldCondition.STARTS_WITH, '10.1');
         Account testAccount = new Account(Name = 'An account Name');
         try {
             condition.isMatch(testAccount);
