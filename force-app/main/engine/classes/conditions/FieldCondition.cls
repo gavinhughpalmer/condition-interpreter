@@ -68,9 +68,10 @@ public class FieldCondition {
     }
 
     private void validateSObject(SObject recordToValidate) {
+        // We must check the tokens match to ensure the field is on the object
         DescribeSObjectResult objectDescribe = recordToValidate.getSObjectType().getDescribe();
-        Boolean recordHasField = objectDescribe.fields.getMap().containsKey(field.getName());
-        if (!recordHasField) {
+        SObjectField objectField = objectDescribe.fields.getMap().get(field.getName());
+        if (objectField != null && objectField != field.getSobjectField()) {
             throw new InvalidConditionException('Invalid sobject provided into the condition ' + toString());
         }
     }
