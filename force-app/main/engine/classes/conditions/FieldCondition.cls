@@ -44,29 +44,21 @@ public class FieldCondition {
     private final Conditionable condition;
     private final Object filterValue;
 
-    @SuppressWarnings('PMD.ExcessiveParameterList')
-    public FieldCondition(String objectApiName, String fieldApiName, String operator, String filterValueString) {
-        final SchemaFacade schema = SchemaFacade.getInstance();
-        schema.validateFieldApiName(objectApiName, fieldApiName);
-        objectType = schema.getDescribe(objectApiName).getSObjectType();
-        field = schema.getFieldDescribe(objectApiName, fieldApiName);
-        filterValue = parseFieldValue(filterValueString);
+    public FieldCondition(SObjectField fieldToCheck, String operator, Object filterValue) {
+        field = fieldToCheck.getDescribe();
+        this.filterValue = filterValue;
         this.operator = operator.toLowerCase();
         validateOperator();
-        condition = CONDITIONS.get(this.operator);
+        condition = CONDITIONS.get(operator);
+        // TODO Check if the filter value is a valid type for the field input to fail fast, seems to be quite difficult
     }
 
     private void validateOperator() {
-        if (!CONDITIONS.containsKey(this.operator)) {
+        if (!CONDITIONS.containsKey(operator)) {
             throw new InvalidConditionException(
-                String.format(INVALID_OPERATOR, new List<String>{this.operator})
+                String.format(INVALID_OPERATOR, new List<String>{operator})
             );
         }
-    }
-
-    private Object parseFieldValue(String stringToParse) {
-        Parsable displayTypeParser = new DisplayTypeParser(field.getType());
-        return displayTypeParser.parse(stringToParse);
     }
 
     public Boolean isMatch(SObject recordToCheck) {
@@ -76,7 +68,10 @@ public class FieldCondition {
     }
 
     private void validateSObject(SObject recordToValidate) {
-        if (recordToValidate.getSObjectType() != objectType) {
+        // We must check the tokens match to ensure the field is on the object
+        DescribeSObjectResult objectDescribe = recordToValidate.getSObjectType().getDescribe();
+        SObjectField objectField = objectDescribe.fields.getMap().get(field.getName());
+        if (objectField != null && objectField != field.getSobjectField()) {
             throw new InvalidConditionException('Invalid sobject provided into the condition ' + toString());
         }
     }

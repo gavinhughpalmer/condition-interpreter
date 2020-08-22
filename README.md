@@ -20,3 +20,5 @@ The project came about with seeing that many managed packages in Salesforce deve
 ## Future Phases
 
 * Include logic to create a dynamic soql based on the conditions so that only the records that are being refrenced get queried
+* Add better error handling for the conditions, so that the correct name of the operator is output rather than the base operator that ends up being used
+*

@@ -5,30 +5,9 @@
 private class FieldConditionTest {
 
     @isTest
-    private static void constructorTestInvalidField() {
-        final String fakeObject = 'Not an object';
-        try {
-            FieldCondition testCondition = new FieldCondition(fakeObject, 'not a field', 'not an operator', 'not a value');
-
-            System.assert(false, 'An exception should be thrown for invalid fields/objects');
-
-        } catch (SchemaFacade.InvalidDescribeException exceptionToCheck) {
-            System.assert(
-                exceptionToCheck.getMessage().contains(fakeObject),
-                'The message should contain the name of the invalid object, actual error given: ' + exceptionToCheck.getMessage()
-            );
-        } catch (Exception wrongException) {
-            System.assert(
-                false,
-                'A more specific exception should have been thrown, error given: ' + wrongException.getMessage()
-            );
-        }
-    }
-
-    @isTest
     private static void isMatchTestInvalidSObject() {
         final String filterValue = 'Gavin';
-        FieldCondition equalsCondition = new FieldCondition('Account', 'Name', FieldCondition.EQUAL, filterValue);
+        FieldCondition equalsCondition = new FieldCondition(Account.Name, FieldCondition.EQUAL, filterValue);
         try {
             equalsCondition.isMatch(new Contact());
             System.assert(false, 'An exception should be thrown if the provided sobject does not match the conditions sobject');
@@ -49,7 +28,7 @@ private class FieldConditionTest {
     @isTest
     private static void isMatchTestEqualsEqualStrings() {
         final String matchingName = 'Gavin';
-        FieldCondition equalsCondition = new FieldCondition('Account', 'Name', FieldCondition.EQUAL, matchingName);
+        FieldCondition equalsCondition = new FieldCondition(Account.Name, FieldCondition.EQUAL, matchingName);
         Account matchingAccount = new Account(Name = matchingName);
         System.assert(
             equalsCondition.isMatch(matchingAccount),
@@ -60,7 +39,7 @@ private class FieldConditionTest {
     @isTest
     private static void isMatchTestEqualsNotEqualStrings() {
         final String nonMatchingName = 'Gavin';
-        FieldCondition equalsCondition = new FieldCondition('Account', 'Name', FieldCondition.EQUAL, nonMatchingName);
+        FieldCondition equalsCondition = new FieldCondition(Account.Name, FieldCondition.EQUAL, nonMatchingName);
         Account matchingAccount = new Account(Name = 'Annother name');
         System.assert(
             !equalsCondition.isMatch(matchingAccount),
@@ -71,7 +50,7 @@ private class FieldConditionTest {
     @isTest
     private static void isMatchTestNotEqualsEqualStrings() {
         final String matchingName = 'Gavin';
-        FieldCondition conditionNotEqual = new FieldCondition('Account', 'Name', FieldCondition.NOT_EQUAL, matchingName);
+        FieldCondition conditionNotEqual = new FieldCondition(Account.Name, FieldCondition.NOT_EQUAL, matchingName);
         Account matchingAccount = new Account(Name = matchingName);
         System.assert(
             !conditionNotEqual.isMatch(matchingAccount),
@@ -82,7 +61,7 @@ private class FieldConditionTest {
     @isTest
     private static void isMatchTestNotEqualsNotEqualStrings() {
         final String nonMatchingName = 'Gavin';
-        FieldCondition conditionNotEqual = new FieldCondition('Account', 'Name', FieldCondition.NOT_EQUAL, nonMatchingName);
+        FieldCondition conditionNotEqual = new FieldCondition(Account.Name, FieldCondition.NOT_EQUAL, nonMatchingName);
         Account matchingAccount = new Account(Name = 'Annother name');
         System.assert(
             conditionNotEqual.isMatch(matchingAccount),
@@ -93,7 +72,7 @@ private class FieldConditionTest {
     @isTest
     private static void isMatchTestLessThanLessThanDate() {
         final Date today = Date.today();
-        FieldCondition lessThanCondition = new FieldCondition('Contact', 'Birthdate', FieldCondition.LESS_THAN, String.valueOf(today));
+        FieldCondition lessThanCondition = new FieldCondition(Contact.Birthdate, FieldCondition.LESS_THAN, today);
         Contact testContact = new Contact(Birthdate = today.addDays(-1));
         System.assert(
             lessThanCondition.isMatch(testContact),
@@ -103,7 +82,7 @@ private class FieldConditionTest {
 
     @isTest
     private static void isMatchTestLessThanInvalidLessThan() {
-        FieldCondition lessThanCondition = new FieldCondition('Contact', 'FirstName', FieldCondition.LESS_THAN, 'A name');
+        FieldCondition lessThanCondition = new FieldCondition(Contact.FirstName, FieldCondition.LESS_THAN, 'A name');
         Contact testContact = new Contact(FirstName = 'Different name');
         try {
             lessThanCondition.isMatch(testContact);
@@ -121,7 +100,7 @@ private class FieldConditionTest {
     @isTest
     private static void isMatchTestLessThanEqualDate() {
         final Date today = Date.today();
-        FieldCondition lessThanCondition = new FieldCondition('Contact', 'Birthdate', FieldCondition.LESS_THAN, String.valueOf(today));
+        FieldCondition lessThanCondition = new FieldCondition(Contact.Birthdate, FieldCondition.LESS_THAN, today);
         Contact testContact = new Contact(Birthdate = today);
         System.assert(
             !lessThanCondition.isMatch(testContact),
@@ -132,7 +111,7 @@ private class FieldConditionTest {
     @isTest
     private static void isMatchTestLessOrEqualEqualDate() {
         final Date today = Date.today();
-        FieldCondition lessThanCondition = new FieldCondition('Contact', 'Birthdate', FieldCondition.LESS_OR_EQUAL, String.valueOf(today));
+        FieldCondition lessThanCondition = new FieldCondition(Contact.Birthdate, FieldCondition.LESS_OR_EQUAL, today);
         Contact testContact = new Contact(Birthdate = today);
         System.assert(
             lessThanCondition.isMatch(testContact),
@@ -143,7 +122,7 @@ private class FieldConditionTest {
     @isTest
     private static void isMatchTestGreaterThanGreaterDate() {
         final Date today = Date.today();
-        FieldCondition lessThanCondition = new FieldCondition('Contact', 'Birthdate', FieldCondition.GREATER_THAN, String.valueOf(today));
+        FieldCondition lessThanCondition = new FieldCondition(Contact.Birthdate, FieldCondition.GREATER_THAN, today);
         Contact testContact = new Contact(Birthdate = today.addDays(1));
         System.assert(
             lessThanCondition.isMatch(testContact),
@@ -154,7 +133,7 @@ private class FieldConditionTest {
     @isTest
     private static void isMatchTestGreaterOrEqualGreaterDate() {
         final Date today = Date.today();
-        FieldCondition lessThanCondition = new FieldCondition('Contact', 'Birthdate', FieldCondition.GREATER_OR_EQUAL, String.valueOf(today));
+        FieldCondition lessThanCondition = new FieldCondition(Contact.Birthdate, FieldCondition.GREATER_OR_EQUAL, today);
         Contact testContact = new Contact(Birthdate = today.addDays(1));
         System.assert(
             lessThanCondition.isMatch(testContact),
@@ -165,7 +144,7 @@ private class FieldConditionTest {
     @isTest
     private static void isMatchTestGreaterOrEqualGreaterNumber() {
         final Decimal smallerNumber = 200.0;
-        FieldCondition lessThanCondition = new FieldCondition('Account', 'AnnualRevenue', FieldCondition.GREATER_OR_EQUAL, String.valueOf(smallerNumber));
+        FieldCondition lessThanCondition = new FieldCondition(Account.AnnualRevenue, FieldCondition.GREATER_OR_EQUAL, smallerNumber);
         Account testAccount = new Account(AnnualRevenue = smallerNumber + 10);
         System.assert(
             lessThanCondition.isMatch(testAccount),
@@ -177,7 +156,7 @@ private class FieldConditionTest {
     private static void isMatchTestInvalidOperator() {
         final String invalidOperator = 'Not An operator';
         try {
-            FieldCondition condition = new FieldCondition('Account', 'AnnualRevenue', invalidOperator, '');
+            FieldCondition condition = new FieldCondition(Account.AnnualRevenue, invalidOperator, '');
             System.assert(false, 'an exception should be thrown when an invalid operator is passed into the constuctor');
         } catch (FieldCondition.InvalidConditionException invalidConditionException) {
             System.assert(
@@ -192,7 +171,7 @@ private class FieldConditionTest {
     // @isTest
     // private static void isMatchTestIncludingIncludingPicklist() {
 //        final String includedPicklistValue = 'Test Value';
-//        FieldCondition condition = new FieldCondition('Account', 'A multi picklist field', FieldCondition.INCLUDES, includedPicklistValue);
+//        FieldCondition condition = new FieldCondition(Account.?, FieldCondition.INCLUDES, includedPicklistValue);
 //        Account testAccount = new Account(); // need to set a multi picklist field
 //        System.assert(condition.isMatch(testAccount), 'The ');
         //TODO
@@ -200,7 +179,7 @@ private class FieldConditionTest {
 
     // @isTest
     // private static void isMatchTestExcludingExcludingPicklist() {
-//        FieldCondition condition = new FieldCondition('Account', 'A multi picklist field', FieldCondition.INCLUDES, 'Some;picklist;values');
+//        FieldCondition condition = new FieldCondition(Account.?, FieldCondition.INCLUDES, 'Some;picklist;values');
 //        Account testAccount = new Account(); // need to set a multi picklist field
 //        System.assert(condition.isMatch(testAccount), 'The ');
         //TODO
@@ -209,7 +188,7 @@ private class FieldConditionTest {
     @isTest
     private static void isMatchTestContainsHasString() {
         final String containedString = 'Test Value';
-        FieldCondition condition = new FieldCondition('Account', 'Name', FieldCondition.CONTAINS, containedString);
+        FieldCondition condition = new FieldCondition(Account.Name, FieldCondition.CONTAINS, containedString);
         Account testAccount = new Account(Name = 'Some other string' + containedString);
         System.assert(
             condition.isMatch(testAccount),
@@ -219,8 +198,7 @@ private class FieldConditionTest {
 
     @isTest
     private static void isMatchTestContainsInvalidStringField() {
-        final String invalidFieldName = 'AnnualRevenue';
-        FieldCondition condition = new FieldCondition('Account', invalidFieldName, FieldCondition.CONTAINS, '10.1');
+        FieldCondition condition = new FieldCondition(Account.AnnualRevenue, FieldCondition.CONTAINS, '10.1');
         Account testAccount = new Account(Name = 'An account Name');
         try {
             condition.isMatch(testAccount);
@@ -237,7 +215,7 @@ private class FieldConditionTest {
 
     @isTest
     private static void isMatchTestDoesNotContainNoString() {
-        FieldCondition condition = new FieldCondition('Account', 'Name', FieldCondition.DOES_NOT_CONTAIN, 'A string');
+        FieldCondition condition = new FieldCondition(Account.Name, FieldCondition.DOES_NOT_CONTAIN, 'A string');
         Account testAccount = new Account(Name = 'Some other string');
         System.assert(
             condition.isMatch(testAccount),
@@ -248,7 +226,7 @@ private class FieldConditionTest {
     @isTest
     private static void isMatchTestStartsWithHasString() {
         final String containedString = 'Test Value';
-        FieldCondition condition = new FieldCondition('Account', 'Name', FieldCondition.STARTS_WITH, containedString);
+        FieldCondition condition = new FieldCondition(Account.Name, FieldCondition.STARTS_WITH, containedString);
         Account testAccount = new Account(Name = containedString + 'Some other string');
         System.assert(
             condition.isMatch(testAccount),
@@ -259,7 +237,7 @@ private class FieldConditionTest {
     @isTest
     private static void isMatchTestEndsWithHasString() {
         final String containedString = 'Test Value';
-        FieldCondition condition = new FieldCondition('Account', 'Name', FieldCondition.ENDS_WITH, containedString);
+        FieldCondition condition = new FieldCondition(Account.Name, FieldCondition.ENDS_WITH, containedString);
         Account testAccount = new Account(Name = 'Some other string' + containedString);
         System.assert(
             condition.isMatch(testAccount),
@@ -269,7 +247,7 @@ private class FieldConditionTest {
 
     @isTest
     private static void isMatchTestStartsWithHasNoString() {
-        FieldCondition condition = new FieldCondition('Account', 'Name', FieldCondition.STARTS_WITH, 'Beginning');
+        FieldCondition condition = new FieldCondition(Account.Name, FieldCondition.STARTS_WITH, 'Beginning');
         Account testAccount = new Account(Name = 'Some other string');
         System.assert(
             !condition.isMatch(testAccount),
@@ -279,7 +257,7 @@ private class FieldConditionTest {
 
     @isTest
     private static void isMatchTestEndsWithHasNoString() {
-        FieldCondition condition = new FieldCondition('Account', 'Name', FieldCondition.ENDS_WITH, 'Ending');
+        FieldCondition condition = new FieldCondition(Account.Name, FieldCondition.ENDS_WITH, 'Ending');
         Account testAccount = new Account(Name = 'Some other string');
         System.assert(
             !condition.isMatch(testAccount),
@@ -289,8 +267,7 @@ private class FieldConditionTest {
 
     @isTest
     private static void isMatchTestStartsWithInvalidStringField() {
-        final String invalidFieldName = 'AnnualRevenue';
-        FieldCondition condition = new FieldCondition('Account', invalidFieldName, FieldCondition.STARTS_WITH, '10.1');
+        FieldCondition condition = new FieldCondition(Account.AnnualRevenue, FieldCondition.STARTS_WITH, '10.1');
         Account testAccount = new Account(Name = 'An account Name');
         try {
             condition.isMatch(testAccount);
@@ -307,8 +284,7 @@ private class FieldConditionTest {
 
     @isTest
     private static void isMatchTestEndsWithInvalidStringField() {
-        final String invalidFieldName = 'AnnualRevenue';
-        FieldCondition condition = new FieldCondition('Account', invalidFieldName, FieldCondition.ENDS_WITH, '10.1');
+        FieldCondition condition = new FieldCondition(Account.AnnualRevenue, FieldCondition.ENDS_WITH, '10.1');
         Account testAccount = new Account(Name = 'An account Name');
         try {
             condition.isMatch(testAccount);
