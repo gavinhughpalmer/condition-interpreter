@@ -6,10 +6,10 @@ This project is a utility in apex that can evaluate user defined conditions, for
 
 The simplest installation option would be to install the unlocked package using one of the following links
 
-1. [Production](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t4K000001hjRFQAY)
-2. [Sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04t4K000001hjRFQAY)
+1. [Production](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t4K000001hjhqQAA)
+2. [Sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04t4K000001hjhqQAA)
 
-Alternatively this can be done in the command line using `sfdx force:package:install --package 04t4K000001hjRFQAY`
+Alternatively this can be done in the command line using `sfdx force:package:install --package 04t4K000001hjhqQAA`
 
 ## Usage
 
