@@ -49,7 +49,7 @@ public class FieldCondition {
         this.filterValue = filterValue;
         this.operator = operator.toLowerCase();
         validateOperator();
-        condition = CONDITIONS.get(operator);
+        condition = CONDITIONS.get(this.operator); // must use this as it has been moved to lowercase
         // TODO Check if the filter value is a valid type for the field input to fail fast, seems to be quite difficult
     }
 
